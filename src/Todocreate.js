@@ -80,25 +80,28 @@ class Todocreate extends Component {
     render(){
 
         let todoList = this.state.todolist.map((value,key) => {
+            console.log(key);
             return(
-                <Todoitems key={key} editToDo={()=>this.editToDo(key)} ref={key} title={value.title} task={value.task} editbutton={this.editToDo} />
+                <Todoitems key={key} id={key} editToDo={()=>this.editToDo(key)} ref={key} title={value.title} task={value.task} editbutton={this.editToDo} />
             )
         })
 
         return(
             <Layout>
-                <form onSubmit={this.submitHandler} method="POST" className="to-do-form">
-                    <div className="form-element">
-                        <input type="text" name="title" value={this.state.title} onChange={this.handleFormChange} placeholder="Title" />
-                    </div>
-                    <div className="form-element">
-                        <input type="text" name="task" value={this.state.task} onChange={this.handleFormChange} placeholder="Task" />
-                    </div>
-                    <div className="form-element">
-                        <input type="submit" name="submit" value="Submit" />
-                    </div>
+                <div>
+                    <form onSubmit={this.submitHandler} method="POST" className="to-do-form">
+                        <div className="form-element">
+                            <input type="text" name="title" value={this.state.title} onChange={this.handleFormChange} placeholder="Title" />
+                        </div>
+                        <div className="form-element">
+                            <input type="text" name="task" value={this.state.task} onChange={this.handleFormChange} placeholder="Task" />
+                        </div>
+                        <div className="form-element">
+                            <input type="submit" name="submit" value="Submit" />
+                        </div>
 
-                </form>
+                    </form>
+                </div>
                 <div className="list-items">
                     {todoList}
                 </div>

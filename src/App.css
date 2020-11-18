@@ -108,13 +108,14 @@ label {
   background-color: darkgrey;
   color: black;
   padding: 10px;
+  display: none;
 }
 
 .to-do-form {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  width: 540px;
+  max-width: 540px;
 }
 
 footer{
@@ -122,4 +123,15 @@ footer{
   color: white;
   min-height: 30px;
   padding: 20px;
+}
+
+.done {
+  text-decoration: line-through;
+}
+
+.show {
+  display: block;
+}
+.done {
+  text-decoration: line-through;
 }
