@@ -1,5 +1,6 @@
 import { Component } from "react";
 import Todoitems from './Todoitmes';
+import Layout from './Layout';
 
 class Todocreate extends Component {
 
@@ -85,25 +86,23 @@ class Todocreate extends Component {
         })
 
         return(
-            <div>
-                <form onSubmit={this.submitHandler} method="POST">
-                <div>
-                    <label>Title:</label>
-                    <input type="text" name="title" value={this.state.title} onChange={this.handleFormChange} />
-                </div>
-                <div>
-                    <label>Task:</label>
-                    <input type="text" name="task" value={this.state.task} onChange={this.handleFormChange} />
-                </div>
-                <div>
-                    <input type="submit" name="submit" value="Submit" />
-                </div>
+            <Layout>
+                <form onSubmit={this.submitHandler} method="POST" className="to-do-form">
+                    <div className="form-element">
+                        <input type="text" name="title" value={this.state.title} onChange={this.handleFormChange} placeholder="Title" />
+                    </div>
+                    <div className="form-element">
+                        <input type="text" name="task" value={this.state.task} onChange={this.handleFormChange} placeholder="Task" />
+                    </div>
+                    <div className="form-element">
+                        <input type="submit" name="submit" value="Submit" />
+                    </div>
 
-            </form>
-
-                {todoList}
-            </div>
-            
+                </form>
+                <div className="list-items">
+                    {todoList}
+                </div>
+            </Layout>
         );
     }
 }

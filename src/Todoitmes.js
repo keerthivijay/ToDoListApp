@@ -10,17 +10,24 @@ class Todoitems extends Component {
         console.log(this.props);
 
         return(
-            <div>
-                <div>
-                    ref:{this.props.ref}
-                    title: {this.props.title}
+            <div className="list-item">
+                <div className="list-main">
+                    <div className="task-item-title">
+                        Title: {this.props.title}
+                    </div>
+                    <div className="list-edit-button" onClick={this.props.editToDo}>
+                        edit
+                    </div>
+                    <div className="list-edit-button">
+                        open
+                    </div>
+                    <div className="list-edit-button">
+                        Done
+                    </div>
                 </div>
-                <div>
+                <div className="list-item-task">
                     Task:{this.props.task}
                 </div>
-                <span onClick={this.props.editToDo}>
-                    edit
-                </span>
             </div>
         );
     }
