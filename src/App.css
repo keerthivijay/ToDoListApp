@@ -54,14 +54,21 @@ main{
   text-align: center;
 }
 
-input[type=submit] {
+button[type=submit] {
   background-color: black;
   color: white;
   padding: 10px;
+  cursor: pointer;
+  border-radius: 20px;
+}
+
+button[type=submit]:hover {
+  background-color: gray;
 }
 
 input[type=text] {
   padding: 10px;
+  border-radius: 2px;
 }
 
 label {
@@ -80,6 +87,8 @@ label {
   margin: 15px;
   min-height: 40px;
   padding: 10px;
+  box-shadow: 2px 2px #e1d5d5;
+  border-radius: 3px;
 }
 
 .list-item:hover {
@@ -94,6 +103,7 @@ label {
 
 .task-item-title{
   width: 80%;
+  cursor: pointer;
 }
 
 .list-main {

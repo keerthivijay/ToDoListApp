@@ -33,10 +33,13 @@ class Todoitems extends Component {
                         {this.props.title}
                     </div>
                     <div className="list-edit-button" onClick={this.props.editToDo}>
-                        Edit
+                        <i class="fas fa-pencil-alt" title="Edit"></i>
                     </div>
                     <div className="list-edit-button" onClick={() => this.doneToDo(this.props.id)}>
-                        Done
+                        <i class="fas fa-check" title="Done"></i>
+                    </div>
+                    <div className="list-edit-button" onClick={this.props.deleteToDo}>
+                        <i class="fas fa-minus-circle" title="Remove"></i>
                     </div>
                 </div>
                 <div className="list-item-task">

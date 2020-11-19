@@ -25,6 +25,9 @@ class Todocreate extends Component {
 
         event.preventDefault();
         console.log(this.state);
+        if(this.state.title==''){
+            return false;
+        }
         if(this.state.editAction) {
             this.updateToDo();
         } else {
@@ -77,12 +80,21 @@ class Todocreate extends Component {
         console.log(this.state);
     }
 
+    deleteToDo = (index) => {
+        console.log('delete to do!');
+
+        let updateState = {...this.state};
+        delete updateState.todolist[index];
+        console.log(updateState);
+        this.setState(updateState);
+    }
+
     render(){
 
         let todoList = this.state.todolist.map((value,key) => {
             console.log(key);
             return(
-                <Todoitems key={key} id={key} editToDo={()=>this.editToDo(key)} ref={key} title={value.title} task={value.task} editbutton={this.editToDo} />
+                <Todoitems key={key} id={key} editToDo={()=>this.editToDo(key)} ref={key} title={value.title} task={value.task} editbutton={this.editToDo} deleteToDo={() => this.deleteToDo(key)} />
             )
         })
 
@@ -97,7 +109,7 @@ class Todocreate extends Component {
                             <input type="text" name="task" value={this.state.task} onChange={this.handleFormChange} placeholder="Task" />
                         </div>
                         <div className="form-element">
-                            <input type="submit" name="submit" value="Submit" />
+                            <button type="submit" name="submit" value="Submit"><i class="fas fa-plus-circle"> ADD</i></button>
                         </div>
 
                     </form>

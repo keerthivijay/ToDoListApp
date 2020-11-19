@@ -3,7 +3,7 @@ const Layout = props => {
     return(
         <div>
             <header>
-                To-Do List
+                <i class="fas fa-list-ul"></i> To-Do List
             </header>
             <main>
                 {props.children}
