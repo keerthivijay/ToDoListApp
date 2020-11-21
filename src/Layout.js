@@ -1,7 +1,7 @@
 const Layout = props => {
 
     return(
-        <div>
+        <div className="container">
             <header>
                 <i class="fas fa-list-ul"></i> To-Do List
             </header>
