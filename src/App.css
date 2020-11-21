@@ -82,6 +82,11 @@ label {
   box-sizing: border-box;
   justify-content: space-between;
 }
+.actions{
+  width: 20%;
+  display: flex;
+  justify-content: space-between;
+}
 .list-item-task {
   background-color: darkgrey;
   color: black;
