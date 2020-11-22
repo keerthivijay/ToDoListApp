@@ -25,7 +25,7 @@ class Todoitems extends Component {
     render(){
 
         console.log(this.props);
-
+        
         return(
             <div className="list-item" id={this.props.id}>
                 <div className="list-main">

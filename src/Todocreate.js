@@ -2,6 +2,7 @@ import { Component } from "react";
 import Todoitems from './Todoitmes';
 import Layout from './Layout';
 import firebaseDB from './firebase';
+import ErrorBoundary from "./ErrorBoundary";
 
 class Todocreate extends Component {
 
@@ -11,7 +12,9 @@ class Todocreate extends Component {
         todolist : {},
         editItem: '',
         firebaseEditId:'',
-        editAction: false
+        editAction: false,
+        loading:true,
+        hasError : false
     }
 
     componentDidMount = () => {
@@ -19,7 +22,7 @@ class Todocreate extends Component {
         //Get from firebase DB
         firebaseDB.on('value',snapshot => {
             if(snapshot.val()!=null){
-               this.setState({...this.state.todolist,todolist:snapshot.val()});
+               this.setState({...this.state,todolist:snapshot.val(),loading:false});
             }
         })
     }
@@ -95,12 +98,20 @@ class Todocreate extends Component {
 
     render(){
 
+        if(this.state.editAction){
+            throw new Error('edit error');
+        }
+
         let todoList = Object.keys(this.state.todolist).map((key) => {
             
             return(
                 <Todoitems key={key} id={key} editToDo={()=>this.editToDo(key)} ref={key} title={this.state.todolist[key].title} task={this.state.todolist[key].task} editbutton={this.editToDo} deleteToDo={() => this.deleteToDo(key)} />
             )
-        })
+        });
+
+        if(this.state.loading){
+            todoList = <i className="fas fa-spinner"></i>;
+        } 
 
         return(
             <Layout>

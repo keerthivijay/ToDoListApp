@@ -120,3 +120,8 @@ footer{
 .done {
   text-decoration: line-through;
 }
+.error-message {
+  background-color: red;
+  padding: 20px;
+  margin: 10px;
+}
