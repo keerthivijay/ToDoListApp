@@ -17,22 +17,23 @@ class ErrorBoundary extends Component {
         console.log(info);
         //this.setState({hasError:true});
         this.getLogService(error.toString(),info.componenetstack);
+        //Fire base error log need to add - https://firebase.google.com/docs/crashlytics
     }
 
     getLogService = console.log
 
     render() {
 
-        let errorMsg = '';
+        let displayContent = '';
         if(this.state.hasError){
-            errorMsg = 'Something went wrong! Please wait...';
+            displayContent = <div className="error-message">'Something went wrong! Please wait...'</div>;
         } else {
-            errorMsg = this.props.children;
+            displayContent = this.props.children;
         }
 
         return(
-            <div className="">
-                {errorMsg}
+            <div>
+                {displayContent}
             </div>
         )
     }

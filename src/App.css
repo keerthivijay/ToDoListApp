@@ -124,4 +124,6 @@ footer{
   background-color: red;
   padding: 20px;
   margin: 10px;
+  color: white;
+  font-weight: bold;
 }

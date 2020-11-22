@@ -98,10 +98,6 @@ class Todocreate extends Component {
 
     render(){
 
-        if(this.state.editAction){
-            throw new Error('edit error');
-        }
-
         let todoList = Object.keys(this.state.todolist).map((key) => {
             
             return(
