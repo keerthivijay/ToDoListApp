@@ -1,10 +1,14 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import Todoitems from './Todoitmes';
 import Layout from './Layout';
 import firebaseDB from './firebase';
-import ErrorBoundary from "./ErrorBoundary";
 
 class Todocreate extends Component {
+
+    constructor(props){
+        super(props);
+        this.titleRef = React.createRef();
+    }
 
     state = {
         title:'',
@@ -18,6 +22,9 @@ class Todocreate extends Component {
     }
 
     componentDidMount = () => {
+
+        this.titleRef.current.focus();
+        console.log(this.titleRef);
 
         //Get from firebase DB
         firebaseDB.on('value',snapshot => {
@@ -38,7 +45,9 @@ class Todocreate extends Component {
     submitHandler = (event) => {
 
         event.preventDefault();
-        if(this.state.title==''){
+        this.titleRef.current.focus();
+
+        if(this.state.title===''){
             return false;
         }
         if(this.state.editAction) {
@@ -113,13 +122,13 @@ class Todocreate extends Component {
             <Layout>
                 <form onSubmit={this.submitHandler} method="POST" className="to-do-form">
                     <div className="form-element">
-                        <input type="text" name="title" value={this.state.title} onChange={this.handleFormChange} placeholder="Title" />
+                        <input type="text" name="title" ref={this.titleRef} value={this.state.title} onChange={this.handleFormChange} placeholder="Title" />
                     </div>
                     <div className="form-element">
                         <input type="text" name="task" value={this.state.task} onChange={this.handleFormChange} placeholder="Task" />
                     </div>
                     <div className="form-element">
-                        <button type="submit" name="submit" value="Submit"><i class="fas fa-plus-circle"> {this.state.editItem==''?'ADD' : 'EDIT' } </i></button>
+                        <button type="submit" name="submit" value="Submit"><i class="fas fa-plus-circle"> {this.state.editItem===''?'ADD' : 'EDIT' } </i></button>
                     </div>
                 </form>
                 <div className="list-items">

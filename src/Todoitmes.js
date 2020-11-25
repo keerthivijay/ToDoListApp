@@ -5,7 +5,7 @@ class Todoitems extends Component {
     openToDo = id => {
         
         var x = document.getElementById(id).getElementsByClassName('list-item-task')[0];
-        if (x.className.indexOf("show") == -1) {
+        if (x.className.indexOf("show") === -1) {
           x.className += " show";
         } else { 
           x.className = x.className.replace(" show", "");
@@ -15,7 +15,7 @@ class Todoitems extends Component {
     doneToDo = id => {
         
         var x = document.getElementById(id).getElementsByClassName('task-item-title')[0];
-        if (x.className.indexOf("done") == -1) {
+        if (x.className.indexOf("done") === -1) {
             x.className += " done";
         } else { 
             x.className = x.className.replace(" done", "");
