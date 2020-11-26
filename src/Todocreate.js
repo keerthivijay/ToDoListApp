@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Todoitems from './Todoitmes';
 import Layout from './Layout';
 import firebaseDB from './firebase';
+import Loader from "./Loader";
 
 class Todocreate extends Component {
 
@@ -115,7 +116,7 @@ class Todocreate extends Component {
         });
 
         if(this.state.loading){
-            todoList = <i className="fas fa-spinner"></i>;
+            todoList = <Loader>Please Wait...</Loader>;
         } 
 
         return(

@@ -127,3 +127,12 @@ footer{
   color: white;
   font-weight: bold;
 }
+.loader {
+  background-image: url('../src/images/ball-beat.gif');
+  height: 32px;
+  width: 80px;
+  background-repeat: no-repeat;
+  background-size: 80px 22px;
+  margin: 0 auto;
+  margin-top: 130px;
+}
