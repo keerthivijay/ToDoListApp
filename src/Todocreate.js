@@ -19,7 +19,15 @@ class Todocreate extends Component {
         firebaseEditId:'',
         editAction: false,
         loading:true,
-        hasError : false
+        hasError : false,
+        search : '',
+        validation : {
+            title : {
+                error: false,
+                touched: false,
+                errorMsg : ''
+            }
+        }
     }
 
     componentDidMount = () => {
@@ -37,15 +45,45 @@ class Todocreate extends Component {
 
     handleFormChange = event => {
 
-        this.setState({
-            ...this.state,
-            [event.target.name]:event.target.value
-        });
+        let validate = this.validate(event);
+        console.log(validate);
+        
+        this.setState({    
+                [event.target.name]:event.target.value,
+                validation : validate
+            });
+
+        console.log(this.state);
+    }
+
+    validate = (event) => {
+        let validate = {};
+        console.log(event.target.name,event.target.value);
+        if(event.target.name==='title' && event.target.value===''){
+            validate = {
+                [event.target.name]: {
+                    touched:true,
+                    errorMsg:'please enter valid data',
+                    error:true
+                }
+            }
+        } else {
+            validate = {
+                title : {
+                    error: false,
+                    touched: false,
+                    errorMsg : ''
+                }
+            }
+        }
+
+        return validate;
     }
 
     submitHandler = (event) => {
 
         event.preventDefault();
+        //let validate = this.validate(event);
         this.titleRef.current.focus();
 
         if(this.state.title===''){
@@ -95,6 +133,10 @@ class Todocreate extends Component {
 
     deleteToDo = (index) => {
 
+        if(!window.confirm('Do You want to delete?')){
+            return false
+        }
+
         //Delete from firebase
         firebaseDB.child('/'+index).remove(error => {
             console.log(error);
@@ -106,15 +148,33 @@ class Todocreate extends Component {
         this.setState(updateState);
     }
 
-    render(){
+    search = (event) => {
+        this.setState({search:event.target.value});
 
-        let todoList = Object.keys(this.state.todolist).map((key) => {
-            
+        console.log(this.state);
+    }
+
+    render(){
+        
+        let todoList = Object.keys(this.state.todolist).filter( (values) => {
+            if(this.state.search === '') {
+                return this.state.todolist[values];
+            } else if(this.state.todolist[values].title.toLowerCase().includes(this.state.search.toLowerCase()) || this.state.todolist[values].task.toLowerCase().includes(this.state.search.toLowerCase())) {
+                return this.state.todolist[values];
+            }
+        })
+        .map((key) => {
+            console.log(this.state.todolist);
+            //console.log(val,key);
+            console.log(this.state.todolist[key]);
             return(
                 <Todoitems key={key} id={key} editToDo={()=>this.editToDo(key)} ref={key} title={this.state.todolist[key].title} task={this.state.todolist[key].task} editbutton={this.editToDo} deleteToDo={() => this.deleteToDo(key)} />
             )
         });
 
+        if(todoList.length===0){
+            todoList = 'No data found!';
+        }
         if(this.state.loading){
             todoList = <Loader>Please Wait...</Loader>;
         } 
@@ -124,14 +184,18 @@ class Todocreate extends Component {
                 <form onSubmit={this.submitHandler} method="POST" className="to-do-form">
                     <div className="form-element">
                         <input type="text" name="title" ref={this.titleRef} value={this.state.title} onChange={this.handleFormChange} placeholder="Title" />
+                        <span className="error-info">{this.state.validation.title.errorMsg}</span>
                     </div>
                     <div className="form-element">
-                        <input type="text" name="task" value={this.state.task} onChange={this.handleFormChange} placeholder="Task" />
+                        <input type="text" name="task" value={this.state.task} onChange={this.handleFormChange} placeholder="Task (Optional)" />
                     </div>
                     <div className="form-element">
-                        <button type="submit" name="submit" value="Submit"><i class="fas fa-plus-circle"> {this.state.editItem===''?'ADD' : 'EDIT' } </i></button>
+                        <button type="submit" name="submit" value="Submit"><i class="fas fa-plus-circle"> {this.state.editItem===''?'ADD' : 'UPDATE' } </i></button>
                     </div>
                 </form>
+                { !this.state.loading ? <div className="search-bar">
+                        <input type="text" name="search" placeholder="Search" value={this.state.search} onChange={this.search} />
+                    </div>: ''}
                 <div className="list-items">
                     {todoList}
                 </div>
